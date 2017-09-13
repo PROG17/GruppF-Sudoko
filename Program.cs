@@ -43,12 +43,17 @@ namespace Gruppinlämning2GruppF
 
             Game game = new Game();
 
-            System.Console.WriteLine("---Startläge---");
+            // Färg på texten
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("---Startläge---");
+            //WriteCenteredText("---Startläge---");
             game.PrintBoardAsText();
 
             game.Solve();
 
-            System.Console.WriteLine("---Slutläge---");       
+            Console.WriteLine("---Slutläge---");
+            //WriteCenteredText("---Slutläge---");
             game.PrintBoardAsText();
 
 
@@ -67,12 +72,12 @@ namespace Gruppinlämning2GruppF
                 counter += 9;
             }
 
-            Console.WriteLine("Row");
+            //Console.WriteLine("Row");
 
-            foreach (var item in rowArr)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in rowArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
         }
 
         //Delar upp stringen i 9 delar med 9 siffror var, och 
@@ -93,12 +98,12 @@ namespace Gruppinlämning2GruppF
 
             }
 
-            Console.WriteLine("Col");
+            //Console.WriteLine("Col");
 
-            foreach (var item in colArr)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in colArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
         }
 
         static void SplitToQuad()
@@ -120,12 +125,20 @@ namespace Gruppinlämning2GruppF
 
             }
 
-            Console.WriteLine("Quad");
+            //Console.WriteLine("Quad");
 
-            foreach (var item in quadArr)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in quadArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+        }
+
+        public static void WriteCenteredText(string text)
+        {
+
+            Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, Console.CursorTop);
+            Console.WriteLine(text);
+
         }
 
 
