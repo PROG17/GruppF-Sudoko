@@ -43,13 +43,18 @@ namespace Gruppinlämning2GruppF
 
             Game game = new Game();
 
+            System.Console.WriteLine("---Startläge---");
             game.PrintBoardAsText();
-            game.AddNumberToBoard();
+
             game.Solve();
+
+            System.Console.WriteLine("---Slutläge---");       
+            game.PrintBoardAsText();
 
 
             Console.ReadLine();
         }
+
         //Delar upp stringen i 9 delar med 9 siffror var, och 
         //tilldelar varje rowArr[index] 9 siffror i följd
         static void SplitToRow() 

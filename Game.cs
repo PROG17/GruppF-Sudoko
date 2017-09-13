@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Gruppinlämning2GruppF
 {
     public class Game
@@ -12,26 +13,27 @@ namespace Gruppinlämning2GruppF
         {
             for (int i = 0; i < Program.sudokuBoard.Length; i++)
             { 
-                string[] checkVault = { "123456789" };
+                string[] checkVault = "123456789";
                 int row = i / 9;
                 int col = i % 9;
+                
                 if (Program.sudokuBoard[i] == '0')
                 {
                     
-
-
                 }
-                Console.WriteLine($"{col}{row}");
-                Console.ReadLine();
+
+                // Skriv ut varje rad och kolumn tillhörande varje ruta
+                Console.WriteLine($"Ruta {i+1} ger col = {col+1} och row = {row+1}");
             }
             
         }
 
-        public void CheckAgainstRow()
+        public static void CheckAgainstRow(int row, int col)
         {
 
 
         }
+
         public void PrintBoardAsText()
         {
             // Deklarerar variabler
@@ -81,10 +83,6 @@ namespace Gruppinlämning2GruppF
 
         }
 
-        public void AddNumberToBoard()
-        {
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Hej");
-        }
+
     }
 }
