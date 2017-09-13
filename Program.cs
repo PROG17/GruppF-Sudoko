@@ -45,7 +45,7 @@ namespace Gruppinlämning2GruppF
 
             game.PrintBoardAsText();
             game.AddNumberToBoard();
-
+            game.Solve();
 
 
             Console.ReadLine();

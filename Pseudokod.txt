@@ -1,0 +1,11 @@
+Sudoku - Pseudokod  
+
+// Programmet ska ta in en sträng av siffror  //
+// Siffrorna skrivs ut med 9st siffror i varje rad //
+// Siffrorna delas in i 9 boxar //
+Metod som kollar vilken rad med boxar av 3 som har flest siffror ifyllda 
+Metod som kontrollerar om siffrorna från 1-9 finns med i Den box som har minst siffror ifyllda, I raden med boxar som har flest siffror ifyllda 
+Om en siffra saknas ska en metod kontrollera om den siffran finns i alla boxarna på den raden 
+Om det finns så ska en metod kontrollera om det finns en nolla I boxen som inte är på samma plats/rad som de 4 andra boxarna 
+Om inte, hoppa tillbaka och kontrollera nästa siffra 
+ 

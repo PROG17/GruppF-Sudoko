@@ -8,11 +8,30 @@ namespace Gruppinlämning2GruppF
 {
     public class Game
     {
-        static void Solve()
+        public void Solve()
         {
+            for (int i = 0; i < Program.sudokuBoard.Length; i++)
+            { 
+                string[] checkVault = { "123456789" };
+                int row = i / 9;
+                int col = i % 9;
+                if (Program.sudokuBoard[i] == '0')
+                {
+                    
+
+
+                }
+                Console.WriteLine($"{col}{row}");
+                Console.ReadLine();
+            }
             
         }
 
+        public void CheckAgainstRow()
+        {
+
+
+        }
         public void PrintBoardAsText()
         {
             // Deklarerar variabler
