@@ -30,16 +30,11 @@ namespace Gruppinlämning2GruppF
         public static string sudokuBoard =
             "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
 
-        public static string[] quadArr = new string[9];
-        public static string[] rowArr = new string[9];
-        public static string[] colArr = new string[9];
 
         static void Main(string[] args)
         {
 
-            SplitToRow();
-            SplitToCol();
-            SplitToQuad();
+    
 
             Game game = new Game();
 
@@ -60,78 +55,7 @@ namespace Gruppinlämning2GruppF
             Console.ReadLine();
         }
 
-        //Delar upp stringen i 9 delar med 9 siffror var, och 
-        //tilldelar varje rowArr[index] 9 siffror i följd
-        static void SplitToRow() 
-        {
-            int counter = 0;
 
-            for (int i = 0; i < rowArr.Length; i++)
-            {
-                rowArr[i] = sudokuBoard.Substring(counter, 9);
-                counter += 9;
-            }
-
-            //Console.WriteLine("Row");
-
-            //foreach (var item in rowArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
-        }
-
-        //Delar upp stringen i 9 delar med 9 siffror var, och 
-        //tilldelar varje colArr[index] 9 siffror i följd
-        static void SplitToCol()
-        {
-
-            for (int i = 0; i < colArr.Length; i++)
-            {
-                int counter = 0;
-                counter += i;
-
-                for (int j = 0; j < colArr.Length; j++)
-                {
-                    colArr[i] = colArr[i] + sudokuBoard.Substring(counter, 1);
-                    counter += 9;
-                }
-
-            }
-
-            //Console.WriteLine("Col");
-
-            //foreach (var item in colArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
-        }
-
-        static void SplitToQuad()
-        {
-
-            for (int i = 0; i < quadArr.Length; i++)
-            {
-                int counter = 0;
-             
-                if (i > 0) counter += i * 3; // Om i > 0 => börja från rad 1. 
-                if (i > 2) counter += 18; // Om i > 2 => börja från rad 4. 
-                if (i > 4) counter += 18; // Om i > 4 => börja från rad 7 
-
-                for (int j = 0; j < 3; j++)
-                {
-                    quadArr[i] = quadArr[i] + sudokuBoard.Substring(counter, 3);
-                    counter += 9;
-                }
-
-            }
-
-            //Console.WriteLine("Quad");
-
-            //foreach (var item in quadArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
-        }
 
         public static void WriteCenteredText(string text)
         {
