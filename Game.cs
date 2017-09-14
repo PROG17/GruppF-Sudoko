@@ -13,21 +13,20 @@ namespace Gruppinlämning2GruppF
         public static string[] quadArr = new string[9];
         public static string[] rowArr = new string[9];
         public static string[] colArr = new string[9];
-        //public static StringBuilder sb = new StringBuilder(Program.sudokuBoard);
-
-
-
 
         public void Solve()
         {
             while (Program.sudokuBoard.Contains("0"))
             {
+                // Startare för varje varv på brädet
+                Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
+                Console.ReadLine();
+
                 // Skapa ny rad, kolumn och kvadrat
                 SplitToRow();
                 SplitToCol();
                 SplitToQuad();
                 int quad = 0;
-
 
                 for (int i = 0; i < Program.sudokuBoard.Length; i++)
                 {
@@ -37,7 +36,7 @@ namespace Gruppinlämning2GruppF
                     int row = i / 9;
                     int col = i % 9;
 
-
+                    // Räknare för att veta vilken quad vi är i
                     if (row < 3 && col < 3) quad = 0;
                     else if (row < 3 && col < 6) quad = 1;
                     else if (row < 3 && col < 9) quad = 2;
@@ -49,29 +48,27 @@ namespace Gruppinlämning2GruppF
                     else if (row < 9 && col < 9) quad = 8;
 
                     // Kolla om rutan i sudokubrädet är 0, dvs inget värde
-
-
                     if (Program.sudokuBoard[i] == '0')
                     {
                         CheckAgainst(row, rowArr);
                         CheckAgainst(col, colArr);
                         CheckAgainst(quad, quadArr);
+
+                        // Kolla vilka siffror som finns kvar att välja på
                         string checking = ControlVault(checkVault);
 
+                        // Om det enbart finns en siffra, lägg till den på brädet
                         if (checking.Length == 1) AddNumberToSudokuBoard(i, checking[0]);
-
-                        //Console.WriteLine(checkVault);
-
                     }
 
                     // Skriv ut varje rad och kolumn tillhörande varje ruta
                     //Console.WriteLine($"Ruta {i} ger col = {col} och row = {row}");
 
                 }
+
                 // Printa brädet efter varje varv
                 PrintBoardAsText();
-                Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
-                Console.ReadLine();
+
             }
         }
 
@@ -236,12 +233,12 @@ namespace Gruppinlämning2GruppF
 
             }
 
-            Console.WriteLine("Quad");
+            //Console.WriteLine("Quad");
 
-            foreach (var item in quadArr)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in quadArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
         }
 
     }
