@@ -13,24 +13,30 @@ namespace Gruppinlämning2GruppF
         public static string[] quadArr = new string[9];
         public static string[] rowArr = new string[9];
         public static string[] colArr = new string[9];
+        //public static StringBuilder sb = new StringBuilder(Program.sudokuBoard);
+
+
+
 
         public void Solve()
         {
-            bool done = false;
-            while(done == false)           
+            while (Program.sudokuBoard.Contains("0"))
             {
+                // Skapa ny rad, kolumn och kvadrat
+                SplitToRow();
+                SplitToCol();
+                SplitToQuad();
+                int quad = 0;
+
+
                 for (int i = 0; i < Program.sudokuBoard.Length; i++)
                 {
-                    // Skapa ny rad, kolumn och kvadrat
-                    SplitToRow();
-                    SplitToCol();
-                    SplitToQuad();
 
                     // Startvärden i början av varje ruta(char) på sudokubrädet
                     checkVault = "123456789";
                     int row = i / 9;
                     int col = i % 9;
-                    int quad = 0;
+
 
                     if (row < 3 && col < 3) quad = 0;
                     else if (row < 3 && col < 6) quad = 1;
@@ -43,6 +49,8 @@ namespace Gruppinlämning2GruppF
                     else if (row < 9 && col < 9) quad = 8;
 
                     // Kolla om rutan i sudokubrädet är 0, dvs inget värde
+
+
                     if (Program.sudokuBoard[i] == '0')
                     {
                         CheckAgainstRow(row);
@@ -52,7 +60,7 @@ namespace Gruppinlämning2GruppF
 
                         if (checking.Length == 1) AddNumberToSudokuBoard(i, checking[0]);
 
-                        Console.WriteLine(checkVault);
+
 
                     }
 
@@ -60,11 +68,10 @@ namespace Gruppinlämning2GruppF
                     //Console.WriteLine($"Ruta {i} ger col = {col} och row = {row}");
                 }
 
-                done = Program.sudokuBoard.Contains(('0'));
-            }
 
-            
+            }
         }
+
 
         public static void CheckAgainstRow(int row)
         {
@@ -122,6 +129,7 @@ namespace Gruppinlämning2GruppF
 
         }
 
+
         public static void AddNumberToSudokuBoard(int oldChar, char newChar)
         {
             var sb = new StringBuilder(Program.sudokuBoard);
@@ -170,8 +178,8 @@ namespace Gruppinlämning2GruppF
                     if (countRow == 0) row = i - 1;
 
                     // om "0" => skriv ut blankt, om ej noll => skriv ut siffran
-                    if (Program.sudokuBoard[row] == '0') Console.Write(" " + " "); 
-                    if (Program.sudokuBoard[row] != '0') Console.Write(Program.sudokuBoard[row] + " "); 
+                    if (Program.sudokuBoard[row] == '0') Console.Write(" " + " ");
+                    if (Program.sudokuBoard[row] != '0') Console.Write(Program.sudokuBoard[row] + " ");
 
                     // Skriv ut en breakpoint mellan var tredje kolumn
                     if (i % 3 == 0 && i != 9 && i != 0) Console.Write("| ");
@@ -263,6 +271,7 @@ namespace Gruppinlämning2GruppF
 
             }
 
+
             //Console.WriteLine("Quad");
 
             //foreach (var item in quadArr)
@@ -273,3 +282,5 @@ namespace Gruppinlämning2GruppF
 
     }
 }
+
+

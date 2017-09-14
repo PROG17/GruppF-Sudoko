@@ -34,7 +34,7 @@ namespace Gruppinlämning2GruppF
         static void Main(string[] args)
         {
 
-    
+
 
             Game game = new Game();
 
@@ -45,7 +45,10 @@ namespace Gruppinlämning2GruppF
             //WriteCenteredText("---Startläge---");
             game.PrintBoardAsText();
 
+            //while (sudokuBoard.Contains("0"))
+            //{ 
             game.Solve();
+            //}
 
             Console.WriteLine("---Slutläge---");
             //WriteCenteredText("---Slutläge---");
