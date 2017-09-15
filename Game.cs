@@ -73,7 +73,10 @@ namespace Gruppinlämning2GruppF
 
                 }
 
-
+                if (Program.sudokuBoard == sb.ToString())
+                {
+                    CantSolve();
+                }
             }
         }
 
