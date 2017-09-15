@@ -19,17 +19,21 @@ namespace Gruppinlämning2GruppF
 
 
 
+
         public void Solve()
         {
             while (Program.sudokuBoard.Contains("0"))
             {
+                // Startare för varje varv på brädet
+                Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
+                Console.ReadLine();
+
                 // Skapa ny rad, kolumn och kvadrat
                 SplitToRow();
                 SplitToCol();
                 SplitToQuad();
                 
                 int quad = 0;
-
 
                 for (int i = 0; i < Program.sudokuBoard.Length; i++)
                 {
@@ -39,7 +43,7 @@ namespace Gruppinlämning2GruppF
                     int row = i / 9;
                     int col = i % 9;
 
-
+                    // Räknare för att veta vilken quad vi är i
                     if (row < 3 && col < 3) quad = 0;
                     else if (row < 3 && col < 6) quad = 1;
                     else if (row < 3 && col < 9) quad = 2;
@@ -51,44 +55,38 @@ namespace Gruppinlämning2GruppF
                     else if (row < 9 && col < 9) quad = 8;
 
                     // Kolla om rutan i sudokubrädet är 0, dvs inget värde
-
-
                     if (Program.sudokuBoard[i] == '0')
                     {
-                        CheckAgainstRow(row);
-                        CheckAgainstCol(col);
-                        CheckAgainstQuad(quad);
+                        CheckAgainst(row, rowArr);
+                        CheckAgainst(col, colArr);
+                        CheckAgainst(quad, quadArr);
+
+                        // Kolla vilka siffror som finns kvar att välja på
                         string checking = ControlVault(checkVault);
 
+                        // Om det enbart finns en siffra, lägg till den på brädet
                         if (checking.Length == 1) AddNumberToSudokuBoard(i, checking[0]);
-
-
-
                     }
 
                     // Skriv ut varje rad och kolumn tillhörande varje ruta
                     //Console.WriteLine($"Ruta {i} ger col = {col} och row = {row}");
+
                 }
-                
-                if (Program.sudokuBoard == sb.ToString())
-                {
-                    CantSolve();
-                }
+
+
             }
-            
         }
 
-
-        public static void CheckAgainstRow(int row)
+        public static void CheckAgainst(int position, string[] arr)
         {
 
-            string checkingRow = rowArr[row];
+            string checking = arr[position];
 
             for (int i = 0; i < checkVault.Length; i++)
             {
-                for (int j = 0; j < checkingRow.Length; j++)
+                for (int j = 0; j < checking.Length; j++)
                 {
-                    if (checkVault[i] == checkingRow[j])
+                    if (checkVault[i] == checking[j])
                     {
                         checkVault = checkVault.Replace(checkVault[i], '0');
                     }
@@ -98,43 +96,6 @@ namespace Gruppinlämning2GruppF
 
 
         }
-
-        public static void CheckAgainstCol(int col)
-        {
-            string checkingCol = colArr[col];
-
-            for (int i = 0; i < checkVault.Length; i++)
-            {
-                for (int j = 0; j < checkingCol.Length; j++)
-                {
-                    if (checkVault[i] == checkingCol[j])
-                    {
-                        checkVault = checkVault.Replace(checkVault[i], '0');
-                    }
-
-                }
-            }
-
-        }
-
-        public static void CheckAgainstQuad(int quad)
-        {
-            string checkingQuad = quadArr[quad];
-
-            for (int i = 0; i < checkVault.Length; i++)
-            {
-                for (int j = 0; j < checkingQuad.Length; j++)
-                {
-                    if (checkVault[i] == checkingQuad[j])
-                    {
-                        checkVault = checkVault.Replace(checkVault[i], '0');
-                    }
-
-                }
-            }
-
-        }
-
 
         public static void AddNumberToSudokuBoard(int oldChar, char newChar)
         {
@@ -276,7 +237,6 @@ namespace Gruppinlämning2GruppF
                 }
 
             }
-
 
             //Console.WriteLine("Quad");
 

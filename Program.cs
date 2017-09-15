@@ -44,40 +44,21 @@ namespace Gruppinlämning2GruppF
 
         static void Main(string[] args)
         {
-            
-
             Game game = new Game();
 
             // Färg på texten
             Console.ForegroundColor = ConsoleColor.Cyan;
 
             Console.WriteLine("---Startläge---");
-            //WriteCenteredText("---Startläge---");
             game.PrintBoardAsText();
 
-            //while (sudokuBoard.Contains("0"))
-            //{ 
             game.Solve();
-            //}
 
             Console.WriteLine("---Slutläge---");
-            //WriteCenteredText("---Slutläge---");
             game.PrintBoardAsText();
 
 
             Console.ReadLine();
         }
-
-
-
-        public static void WriteCenteredText(string text)
-        {
-
-            Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, Console.CursorTop);
-            Console.WriteLine(text);
-
-        }
-
-
     }
 }
