@@ -13,7 +13,8 @@ namespace Gruppinlämning2GruppF
         public static string[] quadArr = new string[9];
         public static string[] rowArr = new string[9];
         public static string[] colArr = new string[9];
-        //public static StringBuilder sb = new StringBuilder(Program.sudokuBoard);
+        public static StringBuilder sb = new StringBuilder(Program.sudokuBoard);
+        
 
 
 
@@ -26,6 +27,7 @@ namespace Gruppinlämning2GruppF
                 SplitToRow();
                 SplitToCol();
                 SplitToQuad();
+                
                 int quad = 0;
 
 
@@ -67,9 +69,13 @@ namespace Gruppinlämning2GruppF
                     // Skriv ut varje rad och kolumn tillhörande varje ruta
                     //Console.WriteLine($"Ruta {i} ger col = {col} och row = {row}");
                 }
-
-
+                
+                if (Program.sudokuBoard == sb.ToString())
+                {
+                    CantSolve();
+                }
             }
+            
         }
 
 
@@ -278,6 +284,12 @@ namespace Gruppinlämning2GruppF
             //{
             //    Console.WriteLine(item);
             //}
+        }
+
+        static void CantSolve()
+        {            
+                Console.WriteLine("Evil sudoku");
+                Console.ReadLine();         
         }
 
     }

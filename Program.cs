@@ -27,14 +27,24 @@ namespace Gruppinlämning2GruppF
 {
     class Program
     {
+        //Easy Sudoku
+        //public static string sudokuBoard =
+        //    "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+        //Evil Sudoku
         public static string sudokuBoard =
-            "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+            "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
+        //Hard Sudoku
+        //public static string sudokuBoard =
+        //      "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
+
+        ////Medium Sudoku
+        //public static string sudokuBoard =
+        //      "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
 
 
         static void Main(string[] args)
         {
-
-
+            
 
             Game game = new Game();
 
