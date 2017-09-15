@@ -25,8 +25,8 @@ namespace Gruppinlämning2GruppF
             while (Program.sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
-                Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
-                Console.ReadLine();
+                //Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
+                //Console.ReadLine();
 
                 // Skapa ny rad, kolumn och kvadrat
                 SplitToRow();
