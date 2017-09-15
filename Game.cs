@@ -13,20 +13,65 @@ namespace Gruppinlämning2GruppF
         public static string[] quadArr = new string[9];
         public static string[] rowArr = new string[9];
         public static string[] colArr = new string[9];
-        public static StringBuilder sb = new StringBuilder(Program.sudokuBoard);
-        
+        public static string sudokuBoard;
+        private string sudokuLevel;
 
+        // Porperty för sudokunivå
+        public string SudokuLevel
+        {
+            get { return sudokuLevel; }
+            set
+            {
+                if (value == "easy" || value == "medium" || value == "hard" || value == "evil")
+                {
+                    switch (value)
+                    {
+                        case "easy":
+                            sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+                            break;
+                        case "medium":
+                            sudokuLevel = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
+                            break;
+                        case "hard":
+                            sudokuLevel = "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
+                            break;
+                        case "evil":
+                            sudokuLevel = "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
+                            break;
+                        default:
+                            sudokuLevel = value;
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Sudokunviån existerar inte, vänligen välj easy, medium, hard eller evil");
+                    SudokuLevel = Console.ReadLine();
+                }
+            }
+        }
 
+        // Construcor
+        public Game()
+        {
+            
+        }
 
-
+        // Construcor
+        public Game(string sudoku)
+        {
+            sudokuBoard = sudoku;
+        }
 
         public void Solve()
         {
-            while (Program.sudokuBoard.Contains("0"))
+            while (sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
                 //Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
                 //Console.ReadLine();
+
+                 string checkingBoard = sudokuBoard;
 
                 // Skapa ny rad, kolumn och kvadrat
                 SplitToRow();
@@ -35,9 +80,8 @@ namespace Gruppinlämning2GruppF
                 
                 int quad = 0;
 
-                for (int i = 0; i < Program.sudokuBoard.Length; i++)
+                for (int i = 0; i < sudokuBoard.Length; i++)
                 {
-
                     // Startvärden i början av varje ruta(char) på sudokubrädet
                     checkVault = "123456789";
                     int row = i / 9;
@@ -55,7 +99,7 @@ namespace Gruppinlämning2GruppF
                     else if (row < 9 && col < 9) quad = 8;
 
                     // Kolla om rutan i sudokubrädet är 0, dvs inget värde
-                    if (Program.sudokuBoard[i] == '0')
+                    if (sudokuBoard[i] == '0')
                     {
                         CheckAgainst(row, rowArr);
                         CheckAgainst(col, colArr);
@@ -67,22 +111,19 @@ namespace Gruppinlämning2GruppF
                         // Om det enbart finns en siffra, lägg till den på brädet
                         if (checking.Length == 1) AddNumberToSudokuBoard(i, checking[0]);
                     }
-
-                    // Skriv ut varje rad och kolumn tillhörande varje ruta
-                    //Console.WriteLine($"Ruta {i} ger col = {col} och row = {row}");
-
                 }
 
-                if (Program.sudokuBoard == sb.ToString())
+                if (sudokuBoard == checkingBoard)
                 {
                     CantSolve();
+                    break;
                 }
             }
         }
 
         public static void CheckAgainst(int position, string[] arr)
         {
-
+            // Lagra rad, kolumn, eller grupp i en egen variabel
             string checking = arr[position];
 
             for (int i = 0; i < checkVault.Length; i++)
@@ -93,24 +134,22 @@ namespace Gruppinlämning2GruppF
                     {
                         checkVault = checkVault.Replace(checkVault[i], '0');
                     }
-
                 }
             }
-
-
         }
 
         public static void AddNumberToSudokuBoard(int oldChar, char newChar)
         {
-            var sb = new StringBuilder(Program.sudokuBoard);
+            var sb = new StringBuilder(sudokuBoard);
             sb[oldChar] = newChar;
-            Program.sudokuBoard = sb.ToString();
+            sudokuBoard = sb.ToString();
         }
 
         public static string ControlVault(string check)
         {
             string text = "";
 
+            // Koll om strängen innehåller en siffra
             foreach (var item in check)
             {
                 if (item != '0') text += item;
@@ -122,7 +161,7 @@ namespace Gruppinlämning2GruppF
         public void PrintBoardAsText()
         {
             // Deklarerar variabler
-            int counterSudokuBoard = Program.sudokuBoard.Length;
+            int counterSudokuBoard = sudokuBoard.Length;
             int countRow = 0;
             int row = 0;
 
@@ -133,23 +172,16 @@ namespace Gruppinlämning2GruppF
 
                 Console.WriteLine("");
                 if (countRow % 3 == 0) Console.WriteLine(border);
-                ;
-
-                //int countCursor = 0;
-
+                
                 for (int i = 1; i < 10; i++)
                 {
-                    // Skriv ut i mitten av konsolen
-                    //countCursor += i;
-                    //Console.SetCursorPosition((Console.WindowWidth - border.Length + i) / 2, Console.CursorTop);
-
                     // Beräkna vad i ska vara, dvs måste veta vilken rad
                     if (countRow > 0) row = i - 1 + 9 * (countRow);
                     if (countRow == 0) row = i - 1;
 
                     // om "0" => skriv ut blankt, om ej noll => skriv ut siffran
-                    if (Program.sudokuBoard[row] == '0') Console.Write(" " + " ");
-                    if (Program.sudokuBoard[row] != '0') Console.Write(Program.sudokuBoard[row] + " ");
+                    if (sudokuBoard[row] == '0') Console.Write(" " + " ");
+                    if (sudokuBoard[row] != '0') Console.Write(sudokuBoard[row] + " ");
 
                     // Skriv ut en breakpoint mellan var tredje kolumn
                     if (i % 3 == 0 && i != 9 && i != 0) Console.Write("| ");
@@ -162,18 +194,13 @@ namespace Gruppinlämning2GruppF
                 countRow++;
 
                 // Skriv ut sista raden med en linje
-
                 if (countRow == 9)
                 {
                     Console.WriteLine("");
                     Console.WriteLine(border);
                     Console.WriteLine("");
-
-                    //Program.WriteCenteredText(border);
                 }
-
             }
-
         }
 
         //Delar upp stringen i 9 delar med 9 siffror var, och 
@@ -184,16 +211,9 @@ namespace Gruppinlämning2GruppF
 
             for (int i = 0; i < rowArr.Length; i++)
             {
-                rowArr[i] = Program.sudokuBoard.Substring(counter, 9);
+                rowArr[i] = sudokuBoard.Substring(counter, 9);
                 counter += 9;
             }
-
-            //Console.WriteLine("Row");
-
-            //foreach (var item in rowArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
         }
 
         //Delar upp stringen i 9 delar med 9 siffror var, och 
@@ -208,18 +228,10 @@ namespace Gruppinlämning2GruppF
 
                 for (int j = 0; j < colArr.Length; j++)
                 {
-                    colArr[i] = colArr[i] + Program.sudokuBoard.Substring(counter, 1);
+                    colArr[i] = colArr[i] + sudokuBoard.Substring(counter, 1);
                     counter += 9;
                 }
-
             }
-
-            //Console.WriteLine("Col");
-
-            //foreach (var item in colArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
         }
 
         static void SplitToQuad()
@@ -235,23 +247,15 @@ namespace Gruppinlämning2GruppF
 
                 for (int j = 0; j < 3; j++)
                 {
-                    quadArr[i] = quadArr[i] + Program.sudokuBoard.Substring(counter, 3);
+                    quadArr[i] = quadArr[i] + sudokuBoard.Substring(counter, 3);
                     counter += 9;
                 }
-
             }
-
-            //Console.WriteLine("Quad");
-
-            //foreach (var item in quadArr)
-            //{
-            //    Console.WriteLine(item);
-            //}
         }
 
         static void CantSolve()
         {            
-                Console.WriteLine("Evil sudoku");
+                Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
                 Console.ReadLine();         
         }
 
