@@ -15,50 +15,15 @@ namespace Gruppinlämning2GruppF
         public static string[] colArr = new string[9];
         public static string sudokuBoard;
         public static string sudokuBoardIfStuck;
-        private string sudokuLevel;
+
         string checking;
         string guessNumbers;
 
-        // Porperty för sudokunivå
-        public string SudokuLevel
-        {
-            get { return sudokuLevel; }
-            set
-            {
-                if (value == "easy" || value == "medium" || value == "hard" || value == "evil")
-                {
-                    switch (value)
-                    {
-                        case "easy":
-                            //sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
-                            sudokuLevel = "003020600900305001001806400008102900700000008006708200002609500800203009005010300";
-                            break;
-                        case "medium":
-                            sudokuLevel = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
-                            break;
-                        case "hard":
-                            sudokuLevel = "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
-                            break;
-                        case "evil":
-                            sudokuLevel = "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
-                            break;
-                        default:
-                            sudokuLevel = value;
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Sudokunviån existerar inte, vänligen välj easy, medium, hard eller evil");
-                    SudokuLevel = Console.ReadLine();
-                }
-            }
-        }
 
         // Construcor
         public Game()
         {
-            
+
         }
 
         // Construcor
@@ -70,22 +35,25 @@ namespace Gruppinlämning2GruppF
         public void Solve()
         {
             int countStops = 0;
-          
+            //int countCheckedValues = 0;
+            string controlCheckingValue = "";
+
             while (sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
                 //Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
                 //Console.ReadLine();
-                
-                 string checkingBoard = sudokuBoard;
+
+                string checkingBoard = sudokuBoard;
 
                 // Skapa ny rad, kolumn och kvadrat
                 SplitToRow();
                 SplitToCol();
                 SplitToQuad();
-                
+
                 int quad = 0;
                 int zeroPosition = 0;
+
 
                 for (int i = 0; i < sudokuBoard.Length; i++)
                 {
@@ -121,13 +89,24 @@ namespace Gruppinlämning2GruppF
                     }
                 }
 
-                if (sudokuBoard == checkingBoard)
+                if (sudokuBoard == checkingBoard && checking.Length >= 2)
                 {
                     CantSolve();
                     PrintBoardAsText();
                     countStops++;
-                    IfStuck(checking, zeroPosition);
-                    //break;
+                    
+                    if (controlCheckingValue != checking) IfStuck(checking, zeroPosition, 0);
+                    if (controlCheckingValue == checking) IfStuck(checking, zeroPosition, 0 + 1);
+
+                    controlCheckingValue = checking;
+                    //countCheckedValues++;
+                }
+                else if (sudokuBoard == checkingBoard && checking.Length == 0)
+                {
+                    CantSolve();
+                    Console.WriteLine("Börja om med ny gissning");
+                    sudokuBoard = sudokuBoardIfStuck;
+                    
                 }
 
                 // Vid första stoppet, lagra sudokuBoard
@@ -186,7 +165,7 @@ namespace Gruppinlämning2GruppF
 
                 Console.WriteLine("");
                 if (countRow % 3 == 0) Console.WriteLine(border);
-                
+
                 for (int i = 1; i < 10; i++)
                 {
                     // Beräkna vad i ska vara, dvs måste veta vilken rad
@@ -268,17 +247,15 @@ namespace Gruppinlämning2GruppF
         }
 
         static void CantSolve()
-        {            
-                Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
+        {
+            Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
         }
 
-        static void IfStuck(string numbersLeft, int arrayPosition)
+        static void IfStuck(string numbersLeft, int arrayPosition, int numbersLeftPosition)
         {
- 
 
-                AddNumberToSudokuBoard(arrayPosition, numbersLeft[0]);
+            AddNumberToSudokuBoard(arrayPosition, numbersLeft[numbersLeftPosition]);
             Console.WriteLine("gissar");
-            
 
         }
     }
