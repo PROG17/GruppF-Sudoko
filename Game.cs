@@ -16,6 +16,8 @@ namespace Gruppinlämning2GruppF
         public static string sudokuBoard;
         public static string sudokuBoardIfStuck;
         private string sudokuLevel;
+        string checking;
+        string guessNumbers;
 
         // Porperty för sudokunivå
         public string SudokuLevel
@@ -68,12 +70,13 @@ namespace Gruppinlämning2GruppF
         public void Solve()
         {
             int countStops = 0;
+          
             while (sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
                 //Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
                 //Console.ReadLine();
-
+                
                  string checkingBoard = sudokuBoard;
 
                 // Skapa ny rad, kolumn och kvadrat
@@ -82,6 +85,7 @@ namespace Gruppinlämning2GruppF
                 SplitToQuad();
                 
                 int quad = 0;
+                int zeroPosition = 0;
 
                 for (int i = 0; i < sudokuBoard.Length; i++)
                 {
@@ -104,12 +108,13 @@ namespace Gruppinlämning2GruppF
                     // Kolla om rutan i sudokubrädet är 0, dvs inget värde
                     if (sudokuBoard[i] == '0')
                     {
+                        zeroPosition = i;
                         CheckAgainst(row, rowArr);
                         CheckAgainst(col, colArr);
                         CheckAgainst(quad, quadArr);
 
                         // Kolla vilka siffror som finns kvar att välja på
-                        string checking = ControlVault(checkVault);
+                        checking = ControlVault(checkVault);
 
                         // Om det enbart finns en siffra, lägg till den på brädet
                         if (checking.Length == 1) AddNumberToSudokuBoard(i, checking[0]);
@@ -119,8 +124,10 @@ namespace Gruppinlämning2GruppF
                 if (sudokuBoard == checkingBoard)
                 {
                     CantSolve();
+                    PrintBoardAsText();
                     countStops++;
-                    break;
+                    IfStuck(checking, zeroPosition);
+                    //break;
                 }
 
                 // Vid första stoppet, lagra sudokuBoard
@@ -265,6 +272,15 @@ namespace Gruppinlämning2GruppF
                 Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
         }
 
+        static void IfStuck(string numbersLeft, int arrayPosition)
+        {
+ 
+
+                AddNumberToSudokuBoard(arrayPosition, numbersLeft[0]);
+            Console.WriteLine("gissar");
+            
+
+        }
     }
 }
 
