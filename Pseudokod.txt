@@ -9,3 +9,9 @@ Om en siffra saknas ska en metod kontrollera om den siffran finns i alla boxarna
 Om det finns så ska en metod kontrollera om det finns en nolla I boxen som inte är på samma plats/rad som de 4 andra boxarna 
 Om inte, hoppa tillbaka och kontrollera nästa siffra 
  
+Sudoku – Pseudokod 2 
+
+Om Solve() går ett varv utan att hitta någon siffra så sparas resultatet av sudokuboard
+Metod som kollar vilka siffror som saknas i quaden och vilken en tomma position row och col har 
+Om en siffra saknas ska metoden kolla för checkVault vilka siffror som finns att välja mellan  
+
