@@ -22,33 +22,40 @@ namespace Gruppinlämning2GruppF
 
             sudokuLevel = Console.ReadLine().ToLower();
 
-            if (sudokuLevel == "easy" || sudokuLevel == "medium" || sudokuLevel == "hard" || sudokuLevel == "evil")
+            while (true)
             {
-                switch (sudokuLevel)
+                if (sudokuLevel == "easy" || sudokuLevel == "medium" || sudokuLevel == "hard" || sudokuLevel == "evil")
                 {
-                    case "easy":
-                        //sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
-                        sudokuLevelStartBoard = "003020600900305001001806400008102900700000008006708200002609500800203009005010300";
-                        break;
-                    case "medium":
-                        sudokuLevelStartBoard = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
-                        break;
-                    case "hard":
-                        sudokuLevelStartBoard = "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
-                        break;
-                    case "evil":
-                        sudokuLevelStartBoard = "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
-                        break;
-                    default:
-                        sudokuLevelStartBoard = sudokuLevel;
-                        break;
+                    switch (sudokuLevel)
+                    {
+                        case "easy":
+                            //sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+                            sudokuLevelStartBoard = "003020600900305001001806400008102900700000008006708200002609500800203009005010300";
+                            break;
+                        case "medium":
+                            sudokuLevelStartBoard = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
+                            break;
+                        case "hard":
+                            sudokuLevelStartBoard = "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
+                            break;
+                        case "evil":
+                            sudokuLevelStartBoard = "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
+                            break;
+                        default:
+                            sudokuLevelStartBoard = sudokuLevel;
+                            break;
+                    }
+                    // Gå ur while loop
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Sudokunviån existerar inte, vänligen välj easy, medium, hard eller evil");
+                    sudokuLevel = Console.ReadLine().ToLower();
+                    continue;
                 }
             }
-            else
-            {
-                Console.WriteLine("Sudokunviån existerar inte, vänligen välj easy, medium, hard eller evil");
-                sudokuLevel = Console.ReadLine();
-            }
+
 
             // instans av Game med sudokubrädet som värde
             Game game = new Game(sudokuLevelStartBoard);
