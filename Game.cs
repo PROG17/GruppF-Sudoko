@@ -27,7 +27,8 @@ namespace Gruppinlämning2GruppF
                     switch (value)
                     {
                         case "easy":
-                            sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+                            //sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
+                            sudokuLevel = "003020600900305001001806400008102900700000008006708200002609500800203009005010300";
                             break;
                         case "medium":
                             sudokuLevel = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
@@ -243,7 +244,7 @@ namespace Gruppinlämning2GruppF
 
                 if (i > 0) counter += i * 3; // Om i > 0 => börja från rad 1. 
                 if (i > 2) counter += 18; // Om i > 2 => börja från rad 4. 
-                if (i > 4) counter += 18; // Om i > 4 => börja från rad 7 
+                if (i > 5) counter += 18; // Om i > 4 => börja från rad 7 
 
                 for (int j = 0; j < 3; j++)
                 {
@@ -256,7 +257,6 @@ namespace Gruppinlämning2GruppF
         static void CantSolve()
         {            
                 Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
-                Console.ReadLine();         
         }
 
     }
