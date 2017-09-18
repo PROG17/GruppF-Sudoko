@@ -14,6 +14,7 @@ namespace Gruppinlämning2GruppF
         public static string[] rowArr = new string[9];
         public static string[] colArr = new string[9];
         public static string sudokuBoard;
+        public static string sudokuBoardIfStuck;
         private string sudokuLevel;
 
         // Porperty för sudokunivå
@@ -66,6 +67,7 @@ namespace Gruppinlämning2GruppF
 
         public void Solve()
         {
+            int countStops = 0;
             while (sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
@@ -117,8 +119,12 @@ namespace Gruppinlämning2GruppF
                 if (sudokuBoard == checkingBoard)
                 {
                     CantSolve();
+                    countStops++;
                     break;
                 }
+
+                // Vid första stoppet, lagra sudokuBoard
+                if (countStops == 1) sudokuBoardIfStuck = sudokuBoard;
             }
         }
 
