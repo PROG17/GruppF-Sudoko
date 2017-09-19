@@ -47,8 +47,11 @@ namespace Gruppinlämning2GruppF
                 // checkinBoard är hur sudokuBoard ser ut innan den börjar gå igenom varje cell
                 string checkingBoard = sudokuBoard;
                 LoopAllCellsAndCheckForEmptyOnes();
-                StartGuessing(countStops, checkingBoard);
-
+                
+                if (checkAvailableNumbers.Length < 3)
+                {
+                    StartGuessing(countStops, checkingBoard);
+                }
             }
         }
 
