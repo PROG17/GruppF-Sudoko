@@ -124,14 +124,6 @@ namespace Gruppinlämning2GruppF
                 // Vid första stoppet, lagra sudokuBoard
                 if (countStops == 1) sudokuBoardIfStuck = sudokuBoard;
 
-                // Skapa random lista för zero position
-                //List<int> rndZeroPositionList = new List<int>();
-
-                //foreach (var item in dictGuessingNumbers)
-                //{
-                //    rndZeroPositionList.Add(item.Key);   
-                //}
-
                 //int rndZeroPosition = rnd.Next(rndZeroPositionList.Count);
                 int rndZeroPosition = 0;
                 string rndStringFromZeroPosition = "";
