@@ -17,9 +17,9 @@ namespace Gruppinlämning2GruppF
         private string sudokuBoardIfStuck;
         private string checkAvailableNumbers;
 
-        private List<String> listOfGuessingSudokuBoards = new List<string>();
-        //static Dictionary<string, bool> dictSudoku = new Dictionary<string, bool>();
         private Dictionary<int, string> dictGuessingNumbers = new Dictionary<int, string>();
+        private Random rnd = new Random();
+        private int countStops;
 
         // Construcor
         public Game()
@@ -35,19 +35,20 @@ namespace Gruppinlämning2GruppF
 
         public void Solve()
         {
-            int countStops = 0;
+            countStops = 0;
 
             while (sudokuBoard.Contains("0"))
             {
                 // Startare för varje varv på brädet
-                Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
-                Console.ReadLine();
-                PrintBoardAsText();
+                //Console.WriteLine("Tryck enter för att gå ett varv till på brädet");
+                //Console.ReadLine();
+                //PrintBoardAsText();
 
                 // checkinBoard är hur sudokuBoard ser ut innan den börjar gå igenom varje cell
                 string checkingBoard = sudokuBoard;
+
                 LoopAllCellsAndCheckForEmptyOnes();
-                StartGuessing(countStops, checkingBoard);
+                StartGuessing(checkingBoard);
 
             }
         }
@@ -94,11 +95,7 @@ namespace Gruppinlämning2GruppF
                     {
                         AddNumberToSudokuBoard(i, checkAvailableNumbers[0]);
                     }
-                    else if (checkAvailableNumbers.Length != 0)
-                    {
-                        // Lägg till de möjliga gissningarna i en lista
-                        AddGuessingNumbersToList(zeroPosition);
-                    }
+                    AddGuessingNumbersToList(zeroPosition);
                 }
             }
         }
@@ -115,46 +112,66 @@ namespace Gruppinlämning2GruppF
             }
         }
 
-        void StartGuessing(int countStops, string checkingBoard)
+        void StartGuessing(string checkingBoard)
         {
 
             // Börja gissa om programmet inte hittat någon lösning med ovan metoder 
             // och sista rutan i brädet som har 0 har fler än en siffra tillgänglig att välja från
             if (sudokuBoard == checkingBoard && checkAvailableNumbers.Length >= 2)
             {
-                CantSolve();
                 countStops++;
 
                 // Vid första stoppet, lagra sudokuBoard
                 if (countStops == 1) sudokuBoardIfStuck = sudokuBoard;
 
-                // Gissa --- lägg till gissning i en lista med sudokus
+                // Skapa random lista för zero position
+                List<int> rndZeroPositionList = new List<int>();
+
                 foreach (var item in dictGuessingNumbers)
                 {
-                    //AddGuessedNumbersToSudokuBoard(item.Key, item.Value);
-                    Console.WriteLine($"{item.Key} --> {item.Value}");
+                    rndZeroPositionList.Add(item.Key);   
                 }
 
-                //foreach (var item in listOfGuessingSudokuBoards)
-                //{
-                //    Console.WriteLine(item);    
-                //}
-                //IfStuck(checking, zeroPosition, guessIndex);
+                //int rndZeroPosition = rnd.Next(rndZeroPositionList.Count);
+                int rndZeroPosition = 0;
+                string rndStringFromZeroPosition = "";
+                int rndCharFromZeroPosition = 0;
 
+                while (true)
+                {
+                    rndZeroPosition = rnd.Next(sudokuBoard.Length);
+                    if (dictGuessingNumbers.ContainsKey(rndZeroPosition) && dictGuessingNumbers[rndZeroPosition].Length > 0
+                        && sudokuBoard[rndZeroPosition] == '0')
+                    {
+                        rndStringFromZeroPosition = dictGuessingNumbers[rndZeroPosition];
+                        rndCharFromZeroPosition = rnd.Next(rndStringFromZeroPosition.Length);
+                        dictGuessingNumbers.Remove(rndZeroPosition);
+                        break;
+                    }
+                }
+
+                // Gissa --- lägg till gissning i en lista med sudokus
+                AddNumberToSudokuBoard(rndZeroPosition, rndStringFromZeroPosition[rndCharFromZeroPosition]);
+
+                // Skriv ut valbara gissningar
+                //foreach (var item in dictGuessingNumbers)
+                //{
+                //    Console.WriteLine($"{item.Key} --> {item.Value}");
+                //}
             }
             // Börja om och gissa med ny siffra om det inte går vägen
             else if (sudokuBoard == checkingBoard && checkAvailableNumbers.Length == 0)
             {
-                CantSolve();
-                Console.WriteLine("Börja om med ny gissning");
+                //Console.WriteLine("Börja om med ny gissning");
                 sudokuBoard = sudokuBoardIfStuck;
-                Console.ReadLine();
+                //PrintBoardAsText();
+                //Console.ReadLine();
             }
         }
 
         
 
-        static string CheckAgainst(int position, string[] arr, string checkVault)
+        string CheckAgainst(int position, string[] arr, string checkVault)
         {
             // Lagra rad, kolumn, eller grupp i en egen variabel
             string checkAvailableNumbers = arr[position];
@@ -183,7 +200,7 @@ namespace Gruppinlämning2GruppF
             SplitToRow();
         }
 
-        public static string ControlVault(string check)
+        string ControlVault(string check)
         {
             string text = "";
 
@@ -299,30 +316,6 @@ namespace Gruppinlämning2GruppF
                 //Console.WriteLine($"quad({i}) = {quadArr[i]}");
             }
         }
-
-        static void CantSolve()
-        {
-            Console.WriteLine("Kan tyvärr inte lösa sudoku med nuvarande metoder");
-        }
-
-        static void IfStuck(string numbersLeft, int arrayPosition, int numbersLeftPosition)
-        {            
-            //AddNumberToSudokuBoard(arrayPosition, numbersLeft[numbersLeftPosition]);
-            Console.WriteLine("gissar");
-
-        }
-
-        //void AddGuessedNumbersToSudokuBoard(int oldChar, string numbersToGuess)
-        //{
-        //    for (int i = 0; i < numbersToGuess.Length; i++)
-        //    {
-        //        var sb = new StringBuilder(sudokuBoard);
-        //        sb[oldChar] = numbersToGuess[i];
-        //        listOfGuessingSudokuBoards.Add(sb.ToString());
-        //    }
-
-        //    //sudokuBoard = listOfGuessingSudokuBoards[oldChar];
-        //}
     }
 }
 
