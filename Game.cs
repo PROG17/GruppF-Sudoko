@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,12 @@ namespace Gruppinlämning2GruppF
         private string[] rowArr = new string[9];
         private string[] colArr = new string[9];
 
-        private string sudokuBoard;
+        public string sudokuBoard;
         private string sudokuBoardIfStuck;
         private string checkAvailableNumbers;
+        //public static long tickStart = 0;
+        //public static long tickEnd = 0;
+        private Stopwatch time;
 
         private Dictionary<int, string> dictGuessingNumbers = new Dictionary<int, string>();
         private Random rnd = new Random();
@@ -30,11 +34,14 @@ namespace Gruppinlämning2GruppF
         // Construcor
         public Game(string sudoku)
         {
+
             sudokuBoard = sudoku;
         }
 
         public void Solve()
         {
+            //tickStart = DateTime.Today.Ticks;
+            time = Stopwatch.StartNew();
             countStops = 0;
 
             while (sudokuBoard.Contains("0"))
@@ -78,6 +85,8 @@ namespace Gruppinlämning2GruppF
                 else if (row < 9 && col < 3) quad = 6;
                 else if (row < 9 && col < 6) quad = 7;
                 else if (row < 9 && col < 9) quad = 8;
+
+
 
                 // Kolla om rutan i sudokubrädet är 0, dvs inget värde
                 if (sudokuBoard[i] == '0')
@@ -150,6 +159,15 @@ namespace Gruppinlämning2GruppF
                 //{
                 //    Console.WriteLine($"{item.Key} --> {item.Value}");
                 //}
+
+                //time.Stop();
+                //var timeElapsed = time.Elapsed;
+                //tickEnd = DateTime.Today.Ticks;
+
+                if (time.ElapsedTicks > 5*1000*10000)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
             // Börja om och gissa med ny siffra om det inte går vägen
             else if (sudokuBoard == checkingBoard && checkAvailableNumbers.Length == 0)
