@@ -13,10 +13,13 @@ namespace Gruppinlämning2GruppF
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
+
             // Kolla vilken sudokunivå som ska visas
-            Console.WriteLine("Välj sudokunivå: easy, medium, hard eller evil");
+            Console.WriteLine("Välj sudokunivå: easy, medium, hard eller evil (testa empty)");
             string sudokuLevel;
             string sudokuLevelStartBoard = "";
 
@@ -24,22 +27,28 @@ namespace Gruppinlämning2GruppF
 
             while (true)
             {
-                if (sudokuLevel == "easy" || sudokuLevel == "medium" || sudokuLevel == "hard" || sudokuLevel == "evil")
+                if (sudokuLevel == "easy" || sudokuLevel == "medium" || sudokuLevel == "hard" || sudokuLevel == "evil" || sudokuLevel == "empty")
                 {
                     switch (sudokuLevel)
                     {
                         case "easy":
                             //sudokuLevel = "619030040270061008000047621486302079000014580031009060005720806320106057160400030";
-                            sudokuLevelStartBoard = "003020600900305001001806400008102900700000008006708200002609500800203009005010300";
+                            sudokuLevelStartBoard =
+                                "305420810487901506029056374850793041613208957074065280241309065508670192096512408";
+
                             break;
                         case "medium":
-                            sudokuLevelStartBoard = "070005009008009100020070405800900530000020000034001002905080060003400700700500040";
+                            sudokuLevelStartBoard = "002030008000008000031020000060050270010000050204060031000080605000000013005310400";
+                            
                             break;
                         case "hard":
                             sudokuLevelStartBoard = "030002000000930001010780290050004600090000080002500010024059060500028000000100020";
                             break;
                         case "evil":
                             sudokuLevelStartBoard = "045000800000080000306900070030006920000204000064800010020001605000070000009000130";
+                            break;
+                        case "empty":
+                            sudokuLevelStartBoard = "090300001000080046000000800405060030003275600060010904001000000580020000200007060";
                             break;
                         default:
                             sudokuLevelStartBoard = sudokuLevel;
@@ -64,12 +73,14 @@ namespace Gruppinlämning2GruppF
             Console.ForegroundColor = ConsoleColor.Cyan;
 
             Console.WriteLine("---Startläge---");
+
             game.PrintBoardAsText();
 
             game.Solve();
 
             Console.WriteLine("---Slutläge---");
             game.PrintBoardAsText();
+
 
 
             Console.ReadLine();
