@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace Gruppinlämning2GruppF
         public string sudokuBoard;
         private string sudokuBoardIfStuck;
         private string checkAvailableNumbers;
-        public static long tickStart = 0;
-        public static long tickEnd = 0;
-
+        //public static long tickStart = 0;
+        //public static long tickEnd = 0;
+        private Stopwatch time;
 
         private Dictionary<int, string> dictGuessingNumbers = new Dictionary<int, string>();
         private Random rnd = new Random();
@@ -39,8 +40,8 @@ namespace Gruppinlämning2GruppF
 
         public void Solve()
         {
-            tickStart = DateTime.Today.Ticks;
-
+            //tickStart = DateTime.Today.Ticks;
+            time = Stopwatch.StartNew();
             countStops = 0;
 
             while (sudokuBoard.Contains("0"))
@@ -56,13 +57,6 @@ namespace Gruppinlämning2GruppF
                 LoopAllCellsAndCheckForEmptyOnes();
                 StartGuessing(checkingBoard);
 
-            }
-
-            tickStart = DateTime.Today.Ticks;
-
-            if (tickEnd - tickStart > 30000000000)
-            {
-                throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -165,6 +159,15 @@ namespace Gruppinlämning2GruppF
                 //{
                 //    Console.WriteLine($"{item.Key} --> {item.Value}");
                 //}
+
+                //time.Stop();
+                //var timeElapsed = time.Elapsed;
+                //tickEnd = DateTime.Today.Ticks;
+
+                if (time.ElapsedTicks > 5*1000*10000)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
             // Börja om och gissa med ny siffra om det inte går vägen
             else if (sudokuBoard == checkingBoard && checkAvailableNumbers.Length == 0)
